@@ -7,6 +7,12 @@
 [7]: http://delivery.acm.org.ezp.lib.unimelb.edu.au/10.1145/3180000/3178112/a34-bakerman.pdf?ip=128.250.144.144&id=3178112&acc=ACTIVE%20SERVICE&key=65D80644F295BC0D%2E157276E45169F5BA%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&__acm__=1557917552_a66b21cd811e464d99e4895226d72d72
 [8]: https://www.aclweb.org/anthology/W18-6102
 [9]: https://link-springer-com.ezp.lib.unimelb.edu.au/article/10.1007/s11276-018-01897-1
+[10]: https://link.springer.com/chapter/10.1007/978-3-319-73706-5_21
+[11]: https://arxiv.org/pdf/1704.04008.pdf
+[12]: https://arxiv.org/pdf/1804.08049.pdf
+[13]: https://arxiv.org/pdf/1708.04358.pdf
+[14]: https://www.aclweb.org/anthology/P17-1116
+[15]: https://www.aclweb.org/anthology/K18-1005
 [Stanford tokenizer]: https://nlp.stanford.edu/pubs/StanfordCoreNlp2014.pdf
 [GloVe]: https://nlp.stanford.edu/projects/glove/
 [Gensim]: https://radimrehurek.com/gensim/
@@ -29,5 +35,8 @@
 | [6], 2018  | Tweets: content, network, posting time                       |                                                              | 1. **TF-IDF** (Term Frequency - Inverse Document Frequency): a document a concatenation of tweets posted from the same user.<br />2. **Context Feature**: doc2vec (used algorithm: PV-DBOW(Distributed Bag of Words of Paragraph Vector))<br />3. **Library**: [Gensim] | MENET(Multi-Entry Neural Network)                            |
 | [7], 2018  | Tweets: content                                              | 1. Remove all special characters, emojis, # and punctuation except @.<br />2. reduce all chars to lowercase.<br />3. Remove all stop words.([SMART] stop word list, 500 most common Twitter words from [TIME])<br />4. Spell check (replace according to Jaccard coefficient for strings)<br />5. Porter stemming algorithm [Stemmer] | Unigram: unigram variables (latitude × longitude coordinates) | Hybrid Model (a series of **GMMs**)                          |
 | [9], 2019  | Tweets: content                                              | 0. Remove @-mention, hashtag(#) and hyperlink starting with ‘http’ symbol<br />1. Extract named entities (ORGANIZATION/LOCATION): Stanford [NER] tagger<br />2. Remove ambiguous or duplicated entities: Stanford [NER] tagger<br /><br />*Note*: NER > TF-IDF and removing stop words<br />2.1: remove named entities with characters < 4, and with frequency less than threshold ε = 10<br />3. named entities: density-based spatial clustering algorithm [DBSCAN] (*eps* = 0.5, *min_samples* = 5) (DBSCAN > K-means since not require predefined K)<br />4: From result of 3, remove all GLOBAL entities and LOCAL entites that are far away from the density-connected clusters.<br /> | 5. construct vector                                          | MRM (Multilayer Recognition Model)**<br />MNB** with smoothing (replace Laplace 1 with a)(54.82%) [5]: good summary of previous work |
+| [10], 2019 | Tweets, content and metadata                                 | Lower casing, **Tool**: whitespace tokenizer                 | word embeddings (batch normalization)                        | **LSTM**                                                     |
+| [15], 2018 | Tweets, content and metadata                                 |                                                              | word embedding + bidirectional LSTM (BiLSTM)                 | **LSTM**                                                     |
 
-4 Types of categories: Text Approaches, Network Approaches, Hybird Approaches, Graph Convolutional Networks [7, 8, 9] 
+5 Types of categories: Text Approaches, Network Approaches, Hybird Approaches, Graph Convolutional Networks, Metadata-based Approach [7], [8], [9], [14]
+Other interesting NN study: [11], [12], [13]

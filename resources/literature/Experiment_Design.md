@@ -1,5 +1,7 @@
 [GloVe]: https://nlp.stanford.edu/projects/glove/
 
+[CogComp]: https://github.com/CogComp/cogcomp-nlpy
+
 
 
 ## Experiment Design
@@ -12,7 +14,7 @@
 4. Reduce all chars to lowercase.
 5. Spell check (?) (replace according to Jaccard coefficient for strings)
 6. Porter stemming algorithm
-7. Remove all stop words. (SMART stop word list, 500 most common Twitter words) OR NER(ORGANIZATION/LOCATION) (char > 4 and frequency > 10(?))
+7. Remove all stop words. (SMART stop word list, 500 most common Twitter words) OR NER (Standford or [CogComp])(ORGANIZATION/LOCATION) (char > 4 and frequency > 10(?))
 8. DBSCAN (*eps* = 0.5, *min_samples* = 5) OR K-means remove GLOBAL entities and entities far away from cluster
 9. Exclude all tweets being published by users whose cumulative words is less than 600 (?)
 10. Tweet Normalization (transfer short forms(CA) / long forms(coooool) to full meanings) (?)
@@ -48,12 +50,11 @@ Not Consider:
 3. SVM (linear)
 4. GMMs (?)
 5. Ensemble Learning?
+6. ANN / CNN / LSTM / NN: hard to interprete, long time to build and modify to best performance, lack of background and experience
 
 Not Consider:
 
-1. ANN / CNN: hard to interprete, long time to build and modify to best performance, lack of background and experience
-
-2. Semi-supervised: not suitable, since:
+1. Semi-supervised: not suitable, since:
 
    a. number of unlabeled instances is not way more larger than labeled instances (roughly the same)
 
