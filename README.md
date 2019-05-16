@@ -8,6 +8,9 @@ For detailed description please look at resources/project_description.pdf
 
 ## EXECUTION COMMAND (Linux)
 
+`cd src`
+
+`python3 geotag.py`
 
 
 ## ATTRIBUTION

@@ -1,6 +1,7 @@
 [GloVe]: https://nlp.stanford.edu/projects/glove/
 
 [CogComp]: https://github.com/CogComp/cogcomp-nlpy
+[pyspellchecker]: https://pypi.org/project/pyspellchecker/
 
 
 
@@ -8,16 +9,25 @@
 
 ### Preprocessing
 
-1. Exclude all (generic?) hash tags and mentions
-2. Exclude all Retweets (?)
-3. Remove all speical characters, url, emojis and punctuations.
-4. Reduce all chars to lowercase.
-5. Spell check (?) (replace according to Jaccard coefficient for strings)
-6. Porter stemming algorithm
-7. Remove all stop words. (SMART stop word list, 500 most common Twitter words) OR NER (Standford or [CogComp])(ORGANIZATION/LOCATION) (char > 4 and frequency > 10(?))
-8. DBSCAN (*eps* = 0.5, *min_samples* = 5) OR K-means remove GLOBAL entities and entities far away from cluster
-9. Exclude all tweets being published by users whose cumulative words is less than 600 (?)
-10. Tweet Normalization (transfer short forms(CA) / long forms(coooool) to full meanings) (?)
+1. Remove all speical characters, url, emojis, mentions, hash tags and punctuations.
+
+2. Spell check ([pyspellchecker], based on Peter Novig's method, Levenshtein Distance algorithm to find permutations)
+
+4. Decrese words size:
+
+   a. Remove all stop words. (SMART stop word list, 500 most common Twitter words) 
+
+   b. NER (Standford or [CogComp])(ORGANIZATION/LOCATION) (char > 4 and frequency > 10) **(sometimes can't recognize ny, not work as examples)**
+
+6. Porter stemming algorithm (also does reducing all chars to lowercase.) **(reduce melbourne -> melbourn, MEL -> mel)** OR Lemmatization
+
+5. DBSCAN (*eps* = 0.5, *min_samples* = 5) OR K-means remove GLOBAL entities and entities far away from cluster
+
+Not Do:
+
+1. Exclude all Retweets. Reason: not worth 
+2. Exclude all tweets being published by users whose cumulative words is less than 600 (?). Reason: not be able to do that.
+3. Replace short forms(CA) / long forms(coooool) to unique full meaning. Reason: no library to do that and it is time-consuming to build a dictionary.
 
 ### Baseline
 
