@@ -13,21 +13,31 @@
 
 2. Spell check ([pyspellchecker], based on Peter Novig's method, Levenshtein Distance algorithm to find permutations)
 
-4. Decrese words size:
+3. **(Optional)**: Decrese words size:
 
-   a. Remove all stop words. (SMART stop word list, 500 most common Twitter words) 
+   a. Remove all stop words. (NLTK) 
 
-   b. NER (Standford or [CogComp])(ORGANIZATION/LOCATION) (char > 4 and frequency > 10) **(sometimes can't recognize ny, not work as examples)**
+4. **(Optional)**: Decrease words variance:
 
-6. Porter stemming algorithm (also does reducing all chars to lowercase.) **(reduce melbourne -> melbourn, MEL -> mel)** OR Lemmatization
+   a. Snowball stemming algorithm (also does reducing all chars to lowercase.) **(reduce melbourne -> melbourn, MEL -> mel)** (Lancaster: too agressive, Porter: no better than snowball)
 
-5. DBSCAN (*eps* = 0.5, *min_samples* = 5) OR K-means remove GLOBAL entities and entities far away from cluster
+   b. **(NOT USED)** Lemmatization: 
+
+   ​	Reason: need provide POS (Part of speech) tag
 
 Not Do:
 
-1. Exclude all Retweets. Reason: not worth 
-2. Exclude all tweets being published by users whose cumulative words is less than 600 (?). Reason: not be able to do that.
-3. Replace short forms(CA) / long forms(coooool) to unique full meaning. Reason: no library to do that and it is time-consuming to build a dictionary.
+1. Exclude all Retweets.
+
+   Reason: not worth 
+
+2. Exclude all tweets being published by users whose cumulative words is less than 600 (?). 
+
+   Reason: not be able to do that.
+
+3. Replace short forms(CA) / long forms(coooool) to unique full meaning. 
+
+   Reason: no library to do that and it is time-consuming to build a dictionary.
 
 ### Baseline
 
@@ -37,17 +47,35 @@ Not Do:
 
 Options:
 
-1. unigram(all words) / bigram (pair of words) / trigram (3 of words)
-2. WLH (20% - 80%) on unigram(all words) / bigram (pair of words) / trigram (3 of words)
-3. Word Embedding (Counted based [GloVe] / Prediction based word2vec / doc2vec)
-4. WLH + Word Embedding  (?)
-5. 
+1. unigram(all words)
+
+2. **(Optional)**: Further decrease size:
+
+   a. WLH (20% - 80%) on unigram(all words)
+
+   b. NER (Standford) (ORGANIZATION/LOCATION) (char > 4 and frequency > 10) **(sometimes can't recognize ny, not work as examples)**
+
+   c. MI
+
+   d. All
+
+3. **(Optional)**: Vector Transformation:
+
+   Word Embedding (Counted based [GloVe] / Prediction based word2vec / doc2vec)
+
+4. DBSCAN (*eps* = 0.5, *min_samples* = 5) OR K-means remove GLOBAL entities and entities far away from cluster
 
 Not Consider:
 
-1. Quadtree Data Partitioning: Not useful in this project since it solves the problem of unequally distributed data, which is not present in this project.
+1. bigram (pair of words) / trigram (3 of words). 
 
-2. Paragraph Embeddings: TF-IDF(Term Frequency - Inverse Document Frequency)
+   Reason: not suitable after remove all stop words / NER
+
+2. Quadtree Data Partitioning: 
+
+   Not useful in this project since it solves the problem of unequally distributed data, which is not present in this project.
+
+3. Paragraph Embeddings: TF-IDF(Term Frequency - Inverse Document Frequency)
 
    Normally consider a document a concatenation of tweets posted from the same user
 

@@ -17,6 +17,20 @@ import geotag_preprocess as preprocess
 import geotag_feature_eng as feature
 import pandas as pd
 import numpy as np
+import time
+
+#### Configuration ####
+# preprocessing
+STOP_WORDS = "rmStop"
+#STOP_WORDS = "noRmStop"
+STEM = "stem"
+# STEM = "noStem"
+
+# feature extraction
+EXTRACT_METHOD = "mi"
+# EXTRACT_METHOD = "wlh"
+# EXTRACT_METHOD = "ner"
+# VECTORIZE = "embedding"
 
 #### Constant ####
 TRAIN_FILE = "../resources/dataFile/train-raw.tsv"
@@ -28,9 +42,11 @@ TEST_FILE = "../resources/dataFile/test-raw.tsv"
 def geotag():
     raw_train = read_tsv(TRAIN_FILE)
 
-    clean_train = preprocess.preprocess(raw_train, word_reduce="ner")
+    clean_train = preprocess.preprocess(raw_train, stem=STEM, stop_words=STOP_WORDS, type="train")
 
-    #features = feature.extract_features(clean_train, "MI")
+    #features = feature.extract_features(clean_train, reduce_method="mi", top="10", vectorize="embedding", type="train", tag=STEM + STOP_WORDS)
+    # if features == None:
+    #    return
 
     return
 
@@ -39,25 +55,23 @@ def geotag():
 # end up with \"", so to ensure data integrity, build a new function for reading tsv.
 def read_tsv(file_path):
     print("####INFO: Start reading: ", file_path)
-    data, count = [], -1
+    data, count, num_lines, start_time = [], -1, sum(1 for line in open(file_path)), time.time()
 
     with open(file_path) as file:
         for line in file:
-            line = line.rstrip()
-            words = line.split('\t')
+            words = line.rstrip().split('\t')
 
-            if count == -1:
-                row = [""]
-            else:
-                row = [count]
+            row = [""] if count == -1 else [count]
 
             row.extend(words)
             data.append(row)
             count += 1
 
-    data = np.array(data)
+            print("####INFO: reading " + "{0:.0%}".format(count / num_lines), end='\r')
 
-    print("####INFO: Complete reading: ", file_path)
+    data, end_time = np.array(data), time.time()
+
+    print("####INFO: Complete reading:", file_path, "Spend Time:", end_time - start_time)
 
     return pd.DataFrame(data=data[1:,1:],
                   index=data[1:,0],
@@ -65,5 +79,3 @@ def read_tsv(file_path):
 
 #### Function Call ####
 geotag()
-
-

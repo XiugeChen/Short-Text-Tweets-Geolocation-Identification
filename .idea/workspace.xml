@@ -2,10 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d60c687b-203d-42f1-9db2-2963d3db1054" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/dev-raw.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/dataFile/dev-raw.tsv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/test-raw.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/dataFile/test-raw.tsv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/dataFile/dev-top10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/dataFile/dev-top100.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/dataFile/dev-top50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/dataFile/test-top10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/dataFile/test-top100.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/dataFile/test-top50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/dataFile/train-top10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/dataFile/train-top100.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/dataFile/train-top50.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/literature/Experiment_Design.md" beforeDir="false" afterPath="$PROJECT_DIR$/resources/literature/Experiment_Design.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geotag.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geotag_feature_eng.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag_feature_eng.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geotag_preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag_preprocess.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,13 +24,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/geotag.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="46" column="124" selection-start-line="46" selection-start-column="121" selection-end-line="46" selection-end-column="124" />
+              <folding>
+                <element signature="e#615#653#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/geotag_feature_eng.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="474">
+              <caret line="89" column="11" selection-start-line="89" selection-start-column="11" selection-end-line="89" selection-end-column="11" />
+              <folding>
+                <element signature="e#493#531#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/geotag_preprocess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="65" column="59" selection-start-line="65" selection-start-column="59" selection-end-line="65" selection-end-column="59" />
+            <state relative-caret-position="277">
+              <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="86" selection-end-column="45" />
               <folding>
-                <element signature="e#487#525#0" expanded="true" />
+                <element signature="e#487#527#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -44,9 +77,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/geotagging.py" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/geotag_feature_eng.py" />
-        <option value="$PROJECT_DIR$/src/geotag.py" />
         <option value="$PROJECT_DIR$/src/geotag_preprocess.py" />
+        <option value="$PROJECT_DIR$/src/geotag.py" />
+        <option value="$PROJECT_DIR$/src/geotag_feature_eng.py" />
       </list>
     </option>
   </component>
@@ -62,7 +95,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="36" />
+    <option name="x" value="25" />
     <option name="y" value="23" />
     <option name="width" value="1400" />
     <option name="height" value="758" />
@@ -103,6 +136,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -159,15 +193,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="36" y="23" width="1400" height="758" extended-state="0" />
+    <frame x="25" y="23" width="1400" height="758" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26804122" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26804122" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32882884" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32882884" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3993994" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -175,7 +209,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32882884" />
       <window_info anchor="bottom" id="Messages" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -206,17 +240,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/geotag_feature_eng.py">
+    <entry file="file:///usr/local/lib/python3.7/site-packages/nltk/tokenize/casual.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="140">
+          <caret line="275" column="8" selection-start-line="275" selection-start-column="8" selection-end-line="275" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/geotag.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="61" column="11" lean-forward="true" selection-start-line="61" selection-start-column="11" selection-end-line="63" selection-end-column="37" />
+        <state relative-caret-position="310">
+          <caret line="46" column="124" selection-start-line="46" selection-start-column="121" selection-end-line="46" selection-end-column="124" />
           <folding>
             <element signature="e#615#653#0" expanded="true" />
           </folding>
@@ -225,10 +259,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/geotag_preprocess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="65" column="59" selection-start-line="65" selection-start-column="59" selection-end-line="65" selection-end-column="59" />
+        <state relative-caret-position="277">
+          <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="86" selection-end-column="45" />
           <folding>
-            <element signature="e#487#525#0" expanded="true" />
+            <element signature="e#487#527#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/geotag_feature_eng.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="89" column="11" selection-start-line="89" selection-start-column="11" selection-end-line="89" selection-end-column="11" />
+          <folding>
+            <element signature="e#493#531#0" expanded="true" />
           </folding>
         </state>
       </provider>
