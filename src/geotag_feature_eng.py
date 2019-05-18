@@ -29,19 +29,26 @@ FEATURE_PATH = "../resources/features/"
 NER_MODEL_PATH = "../resources/stanford_ner/english.muc.7class.distsim.crf.ser.gz"
 NER_SOURCE_PATH = "../resources/stanford_ner/stanford-ner.jar"
 
-def extract_features(dataframe, reduce_method="mi", top="10", vectorize="no", type="train", tag=""):
+def extract_features(dataframe, reduce_method="mi", top="10", vectorize="no", words_set=None, type="train", tag=""):
     print("####INFO: Start extracting features")
     start_time = time.time()
+    if words_set != None:
+        features = build_feature_df(dataframe, words_set)
+        end_time = time.time()
+        print("####INFO: Complete extracting features", "Spend Time:", end_time - start_time)
+        return words_set, features
+
+    return_words_set = None
 
     # further decrease the size of words
     if reduce_method == "mi":
         features = extract_mi(dataframe, top, type, tag)
     elif reduce_method == "ner":
-        features = extract_ner(dataframe, top, type, tag)
+        return_words_set, features = extract_ner(dataframe, top, type, tag)
     elif reduce_method == "wlh":
-        features = extract_wlh(dataframe, top, type, tag)
+        return_words_set, features = extract_wlh(dataframe, top, type, tag)
     else:
-        features = extract_all(dataframe, top, type, tag)
+        return_words_set, features = extract_all(dataframe, top, type, tag)
 
     if vectorize == "embedding":
         features = vectorize(features)
@@ -49,13 +56,13 @@ def extract_features(dataframe, reduce_method="mi", top="10", vectorize="no", ty
     end_time = time.time()
     print("####INFO: Complete extracting features", "Spend Time:", end_time - start_time)
 
-    return features
+    return return_words_set, features
 
 # extract limited set (specified by top) of words from the dataframe based on Mutual Information and construct feature vectors
 # return a dataframe of features
 def extract_mi(dataframe, top, type, tag):
     if top in ["10", "100", "50"] and type in ["train", "test", "dev"]:
-        file = FEATURE_PATH + "mi/" + "/" + type + "-top" + top + "-" + tag + ".csv"
+        file = FEATURE_PATH + "mi/" + "/" + type + "-top" + top + ".csv"
         return pd.read_csv(file, delimiter=',')
     else:
         return None
@@ -72,7 +79,7 @@ def extract_ner(dataframe, type, tag):
         new_words = stanford_ner(words)
         words_set = words_set.union(set(new_words))
 
-    return build_feature_df(dataframe, words_set)
+    return words_set, build_feature_df(dataframe, words_set)
 
 # extract a limited set (specified by top) of words from the dataframe based on WLH and construct feature vectors
 def extract_wlh(dataframe, top, type, tag):
@@ -128,7 +135,7 @@ def extract_wlh(dataframe, top, type, tag):
         if (count > limit):
             break
 
-    return build_feature_df(dataframe, words_set)
+    return words_set, build_feature_df(dataframe, words_set)
 
 # extract all words from the dataframe and construct feature vectors
 def extract_all(dataframe, top, type, tag):
@@ -141,7 +148,7 @@ def extract_all(dataframe, top, type, tag):
         words = row[TEXT_COL].split(',')
         words_set = words_set.union(set(words))
 
-    return build_feature_df(dataframe, words_set)
+    return words_set, build_feature_df(dataframe, words_set)
 
 # Given a list of candidate words
 # Return a list of LOCATION and ORGANIZATION words

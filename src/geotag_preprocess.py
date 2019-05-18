@@ -51,7 +51,7 @@ def preprocess(raw_dataframe, stem="stem", stop_words="rmStop", spell_check="che
         text = row[TEXT_COL]
 
         # preprocessing
-        correct_words = tokenize_text(text)
+        correct_words = tokenize_and_remove(text)
         result_words = correct_words
 
         if spell_check == "checkSpell":
@@ -65,6 +65,7 @@ def preprocess(raw_dataframe, stem="stem", stop_words="rmStop", spell_check="che
 
         # count the impact of preprocessing
         new_words = new_words.union(set(result_words))
+        original_words = original_words.union(set(correct_words))
 
         # output format preprocessing data
         result_text = ''.join(word + "," for word in result_words)[:-1]
@@ -82,7 +83,7 @@ def preprocess(raw_dataframe, stem="stem", stop_words="rmStop", spell_check="che
     cleaned_data, end_time = np.array(cleaned_data), time.time()
 
     print("####INFO: Complete preprocessing data", "Spend Time:", end_time - start_time)
-    print("####INFO: Reduce words set length of " + len(new_words))
+    print("####INFO: Reduce words set length of " + str(len(new_words)))
 
     return pd.DataFrame(data=cleaned_data[1:,1:],
                   index=cleaned_data[1:,0],
@@ -96,7 +97,7 @@ def remove_stop_words(words):
 
 # Given a string of text from tweets, remove words contain special words like url, emojis, mentions, hash tags... and tokenize them
 # Return a list of words after tokenize
-def tokenize_text(text):
+def tokenize_and_remove(text):
     tknzr = TweetTokenizer()
 
     text = re.sub(r'\\u[A-Za-z0-9]{4}', '', text)

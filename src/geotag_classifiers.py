@@ -30,20 +30,20 @@ LOC_COL = "Location"
 models = [DummyClassifier(strategy='most_frequent'),
           DummyClassifier(strategy='stratified'),
           MultinomialNB(),
-          svm.LinearSVC(),
-          LogisticRegression()]
+          svm.LinearSVC(max_iter=10000),
+          LogisticRegression(solver="saga", max_iter=1000)]
 titles = ['Dummy_most_frequent',
           'Dummy_stratified',
           'MNB',
           'LinearSVC',
-          'Logistic Regression']
+          'LogisticRegression']
 
 # file paths
 PREDICT_PATH = "../resources/predict_results/"
 
 def train_n_test(train_df, dev_df):
-    train_features = list(set(train_df.columns.values.tolist()) - set(ID_COL, LOC_COL))
-    dev_features = list(set(dev_df.columns.values.tolist()) - set(ID_COL, LOC_COL))
+    train_features = list(set(train_df.columns.values.tolist()) - set([ID_COL, LOC_COL]))
+    dev_features = list(set(dev_df.columns.values.tolist()) - set([ID_COL, LOC_COL]))
 
     x_train, y_train, x_test, y_test = train_df.loc[:, train_features], train_df.loc[:, LOC_COL], dev_df.loc[:, dev_features], dev_df.loc[:, LOC_COL]
 
@@ -58,10 +58,8 @@ def train_n_test(train_df, dev_df):
     return
 
 def predict(train_df, test_df, test_original_df, tags):
-    train_features = list(set(train_df.columns.values.tolist()) - set(ID_COL, LOC_COL))
-    test_features = list(set(test_df.columns.values.tolist()) - set(ID_COL, LOC_COL))
-    file_path = PREDICT_PATH + "_" + tags + ".csv"
-    write_file = open(file_path, 'w')
+    train_features = list(set(train_df.columns.values.tolist()) - set([ID_COL, LOC_COL]))
+    test_features = list(set(test_df.columns.values.tolist()) - set([ID_COL, LOC_COL]))
 
     x_train, y_train, x_test = train_df.loc[:, train_features], train_df.loc[:, LOC_COL], test_df.loc[:, test_features]
 
@@ -69,11 +67,17 @@ def predict(train_df, test_df, test_original_df, tags):
         start = time.time()
         model.fit(x_train, y_train)
         results = model.predict(x_test)
+        file_path = PREDICT_PATH + title + "_predict" + "_" + tags + ".txt"
+        write_file = open(file_path, 'w')
 
         i = 0
         for result in results:
-            print(test_original_df[i][ID_COL], "|", test_original_df[i][TEXT_COL], "|", result)
-            write_file.write(test_original_df[i][ID_COL], "|", test_original_df[i][TEXT_COL], "|", result)
+            row = test_original_df.iloc[i, :]
+            id, text = row[ID_COL], row[TEXT_COL]
+
+            txt = str(id) + " | " + text + " | " + ''.join(i for i in result) + '\n'
+            write_file.write(txt)
+
             i += 1
 
         end = time.time()

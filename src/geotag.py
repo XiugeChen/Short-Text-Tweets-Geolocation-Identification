@@ -22,8 +22,8 @@ import time
 
 #### Configuration ####
 # preprocessing
-#STOP_WORDS = "rmStop"
-STOP_WORDS = "noRmStop"
+STOP_WORDS = "rmStop"
+#STOP_WORDS = "noRmStop"
 #STEM = "stem"
 STEM = "noStem"
 # SPELL_CHECK = "checkSpell"
@@ -33,7 +33,6 @@ SPELL_CHECK = "noCheckSpell"
 EXTRACT_METHOD = "mi"
 # EXTRACT_METHOD = "wlh"
 # EXTRACT_METHOD = "ner"
-# VECTORIZE = "embedding"
 TOP = "10"
 # VECTORIZE = "embedding"
 VECTORIZE = "noEmbedding"
@@ -54,16 +53,15 @@ def geotag():
     clean_test = preprocess.preprocess(raw_test, stem=STEM, stop_words=STOP_WORDS, spell_check=SPELL_CHECK,
                                         type="test")
 
-    train_features = feature.extract_features(clean_train, reduce_method=EXTRACT_METHOD, top=TOP, vectorize=VECTORIZE, type="train", tag=STEM + STOP_WORDS + SPELL_CHECK)
-    dev_features = feature.extract_features(clean_dev, reduce_method=EXTRACT_METHOD, top=TOP, vectorize=VECTORIZE,
-                                              type="dev", tag=STEM + STOP_WORDS + SPELL_CHECK)
-    test_features = feature.extract_features(clean_test, reduce_method=EXTRACT_METHOD, top=TOP, vectorize=VECTORIZE,
-                                              type="test", tag=STEM + STOP_WORDS + SPELL_CHECK)
-    if train_features == None or dev_features == None or test_features == None :
-        return
+    words_set, train_features = feature.extract_features(clean_train, reduce_method=EXTRACT_METHOD, top=TOP, vectorize=VECTORIZE,
+                                                         type="train", words_set=None, tag=STEM+STOP_WORDS+SPELL_CHECK)
+    words_set, dev_features = feature.extract_features(clean_dev, reduce_method=EXTRACT_METHOD, top=TOP, vectorize=VECTORIZE,
+                                              type="dev", words_set=words_set, tag=STEM+STOP_WORDS+SPELL_CHECK)
+    words_set, test_features = feature.extract_features(clean_test, reduce_method=EXTRACT_METHOD, top=TOP, vectorize=VECTORIZE,
+                                              type="test", words_set=words_set, tag=STEM+STOP_WORDS+SPELL_CHECK)
 
-    classifiers.train_n_test(train_features, dev_features)
-    classifiers.predict(train_features, test_features, raw_test)
+    classifiers.train_n_test(train_df=train_features, dev_df=dev_features)
+    classifiers.predict(train_df=train_features, test_df=test_features, test_original_df=raw_test, tags=STEM+STOP_WORDS+SPELL_CHECK+EXTRACT_METHOD+TOP+VECTORIZE)
 
     return
 
