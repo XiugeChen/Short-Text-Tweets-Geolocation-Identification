@@ -61,7 +61,11 @@ Options:
 
 3. **(Optional)**: Vector Transformation:
 
-   Word Embedding (Counted based [GloVe] / Prediction based word2vec / doc2vec)
+   Word Embedding (Counted based [GloVe])
+
+   **(Not Used)**: doc2vec: not suitable for discreated words
+
+   **(Not Used)**: word2vec: doesn't contain similar terms for location, like melbourne, Sydney ...
 
 4. DBSCAN (*eps* = 0.5, *min_samples* = 5) OR K-means remove GLOBAL entities and entities far away from cluster
 

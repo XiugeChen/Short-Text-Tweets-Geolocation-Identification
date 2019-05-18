@@ -31,19 +31,19 @@ LOC_COL = "Location"
 PREPROCESS_PATH = "../resources/preprocess_data/"
 
 # preprocess each row of raw data, including
-def preprocess(raw_dataframe, stem="stem", stop_words="rmStop", type="train"):
+def preprocess(raw_dataframe, stem="stem", stop_words="rmStop", spell_check="checkSpell", type="train"):
     print("####INFO: Start preprocessing data")
 
     start_time = time.time()
 
     # if preprocess is done previously, just read the results
-    file_path = PREPROCESS_PATH + type + "_" + stem + "_" + stop_words + ".csv"
+    file_path = PREPROCESS_PATH + type + "_" + stem + "_" + stop_words + "_" + spell_check + ".csv"
     if os.path.isfile(file_path):
         end_time = time.time()
         print("####INFO: Complete preprocessing data (Read from existing)", "Spend Time:", end_time - start_time)
         return pd.read_csv(file_path, delimiter=',')
 
-    cleaned_data, original_words, new_words = [[ID_COL, LOC_COL, TEXT_COL]], set(), set()
+    cleaned_data, new_words = [[ID_COL, LOC_COL, TEXT_COL]], set()
     write_file = open(file_path, 'a')
     write_file.write(ID_COL + "," + LOC_COL + "," + TEXT_COL + '\n')
 
@@ -51,17 +51,19 @@ def preprocess(raw_dataframe, stem="stem", stop_words="rmStop", type="train"):
         text = row[TEXT_COL]
 
         # preprocessing
-        correct_words = spell_check(tokenize_text(text))
+        correct_words = tokenize_text(text)
         result_words = correct_words
 
+        if spell_check == "checkSpell":
+            result_words = spell_check(result_words)
+
         if stop_words == "rmStop":
-            result_words = remove_stop_words(correct_words)
+            result_words = remove_stop_words(result_words)
 
         if stem == "stem":
             result_words = trace_stem(result_words)
 
         # count the impact of preprocessing
-        original_words = original_words.union(set(correct_words))
         new_words = new_words.union(set(result_words))
 
         # output format preprocessing data
@@ -80,7 +82,7 @@ def preprocess(raw_dataframe, stem="stem", stop_words="rmStop", type="train"):
     cleaned_data, end_time = np.array(cleaned_data), time.time()
 
     print("####INFO: Complete preprocessing data", "Spend Time:", end_time - start_time)
-    print("####INFO: Reduce words set length from " + len(original_words) + " to " + len(new_words))
+    print("####INFO: Reduce words set length of " + len(new_words))
 
     return pd.DataFrame(data=cleaned_data[1:,1:],
                   index=cleaned_data[1:,0],

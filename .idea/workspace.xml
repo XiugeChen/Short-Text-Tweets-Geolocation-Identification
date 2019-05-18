@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d60c687b-203d-42f1-9db2-2963d3db1054" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/dev-top10.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/dev-top100.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/dev-top50.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/test-top10.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/test-top100.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/test-top50.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/train-top10.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/train-top100.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/dataFile/train-top50.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/literature/Experiment_Design.md" beforeDir="false" afterPath="$PROJECT_DIR$/resources/literature/Experiment_Design.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/preprocess_data/train_stem_remove_stop.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/preprocess_data/train_stem_remove_stop.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/geotag.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/geotag_feature_eng.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag_feature_eng.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/geotag_preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag_preprocess.py" afterDir="false" />
@@ -27,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/geotag.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="46" column="124" selection-start-line="46" selection-start-column="121" selection-end-line="46" selection-end-column="124" />
+            <state relative-caret-position="466">
+              <caret line="65" column="64" lean-forward="true" selection-start-line="65" selection-start-column="64" selection-end-line="65" selection-end-column="64" />
               <folding>
                 <element signature="e#615#653#0" expanded="true" />
               </folding>
@@ -37,22 +30,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/geotag_feature_eng.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="474">
-              <caret line="89" column="11" selection-start-line="89" selection-start-column="11" selection-end-line="89" selection-end-column="11" />
-              <folding>
-                <element signature="e#493#531#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/geotag_preprocess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="86" selection-end-column="45" />
+            <state relative-caret-position="329">
+              <caret line="83" column="4" lean-forward="true" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="88" />
               <folding>
                 <element signature="e#487#527#0" expanded="true" />
               </folding>
@@ -79,18 +60,8 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/geotag_preprocess.py" />
         <option value="$PROJECT_DIR$/src/geotag.py" />
+        <option value="$PROJECT_DIR$/src/geotag_classifiers.py" />
         <option value="$PROJECT_DIR$/src/geotag_feature_eng.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/Short-Text-Location-Prediction.iml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/R_User_Library.xml" />
       </list>
     </option>
   </component>
@@ -196,7 +167,7 @@
     <frame x="25" y="23" width="1400" height="758" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26804122" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27172312" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -247,10 +218,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/geotag_classifiers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="74" column="94" selection-start-line="74" selection-start-column="94" selection-end-line="74" selection-end-column="94" />
+          <folding>
+            <element signature="e#489#512#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/geotag_feature_eng.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="49" column="89" lean-forward="true" selection-start-line="49" selection-start-column="89" selection-end-line="49" selection-end-column="89" />
+          <folding>
+            <element signature="e#493#531#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/geotag.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="46" column="124" selection-start-line="46" selection-start-column="121" selection-end-line="46" selection-end-column="124" />
+        <state relative-caret-position="466">
+          <caret line="65" column="64" lean-forward="true" selection-start-line="65" selection-start-column="64" selection-end-line="65" selection-end-column="64" />
           <folding>
             <element signature="e#615#653#0" expanded="true" />
           </folding>
@@ -259,20 +250,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/geotag_preprocess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="86" selection-end-column="45" />
+        <state relative-caret-position="329">
+          <caret line="83" column="4" lean-forward="true" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="88" />
           <folding>
             <element signature="e#487#527#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/geotag_feature_eng.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="89" column="11" selection-start-line="89" selection-start-column="11" selection-end-line="89" selection-end-column="11" />
-          <folding>
-            <element signature="e#493#531#0" expanded="true" />
           </folding>
         </state>
       </provider>
