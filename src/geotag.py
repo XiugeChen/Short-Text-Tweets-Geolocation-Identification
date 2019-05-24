@@ -1,96 +1,118 @@
-##########################################################################
-# Short Text Location Prediction
-#
-# Project2 of course Machine Learning COMP30027 at Unimelb
-#
-# A simplification of the more general problem of geotagging, automatically identifies the location from which a textual
-# message was sent, as one of four Australian cities
-#
-# Coordinator and Supervisor**: Tim Baldwin, Karin Verspoor, Jeremy Nicholson, Afshin Rahimi
-# Python version: python3
-# Author: Xiuge Chen
-# Email: xiugec@student.unimelb.edu.au
-# 2019.05.16
-##########################################################################
-
-import geotag_preprocess as preprocess
-import geotag_feature_eng as feature
-import geotag_classifiers as classifiers
 import pandas as pd
-import numpy as np
-import time
 
-#### Configuration ####
-# preprocessing
-STOP_WORDS = "rmStop"
-#STOP_WORDS = "noRmStop"
-#STEM = "stem"
-STEM = "noStem"
-# SPELL_CHECK = "checkSpell"
-SPELL_CHECK = "noCheckSpell"
+import classifiers
+import preprocess
+import feature_eng
 
-# feature extraction
-EXTRACT_METHOD = "mi"
-# EXTRACT_METHOD = "wlh"
-# EXTRACT_METHOD = "ner"
-TOP = "10"
-# VECTORIZE = "embedding"
-VECTORIZE = "noEmbedding"
-
-#### Constant ####
 TRAIN_FILE = "../resources/dataFile/train-raw.tsv"
+ALL_FILE = "../resources/dataFile/all-raw.tsv"
 DEV_FILE = "../resources/dataFile/dev-raw.tsv"
 TEST_FILE = "../resources/dataFile/test-raw.tsv"
+PREDICT_PATH = "../resources/predict_results/"
+FEATURE_PATH = "../resources/features/"
 
-#### Function Declaration ####
-# main entry
-def geotag():
-    raw_train, raw_dev, raw_test = read_tsv(TRAIN_FILE), read_tsv(DEV_FILE), read_tsv(TEST_FILE)
+# classify based on TF-IDF and different feature engineering strategies
+def tf_idf(threshold=0, length=0, limit=0, rm_unseen=False, rm_bias_word=True, merge=True, type="dev"):
+    print("####INFO: start tf-idf")
+    # read clean data and raw data from tsv (clean data finished preprocessing and substring extraction)
+    if type == "dev":
+        clean_train_x, train_y, train_id = preprocess.read_tsv(file_path=TRAIN_FILE, word_min_length=length)
+        clean_test_x, test_y, test_id = preprocess.read_tsv(file_path=DEV_FILE, word_min_length=length)
+        raw_test_x, test_y, test_id = preprocess.read_tsv(file_path=DEV_FILE, word_min_length=length, read_raw=True)
+    else:
+        clean_train_x, train_y, train_id = preprocess.read_tsv(file_path=ALL_FILE, word_min_length=length)
+        clean_test_x, test_y, test_id = preprocess.read_tsv(file_path=TEST_FILE, word_min_length=length)
+        raw_test_x, test_y, test_id = preprocess.read_tsv(file_path=TEST_FILE, word_min_length=length, read_raw=True)
 
-    clean_train = preprocess.preprocess(raw_train, stem=STEM, stop_words=STOP_WORDS, spell_check=SPELL_CHECK, type="train")
-    clean_dev = preprocess.preprocess(raw_dev, stem=STEM, stop_words=STOP_WORDS, spell_check=SPELL_CHECK,
-                                        type="dec")
-    clean_test = preprocess.preprocess(raw_test, stem=STEM, stop_words=STOP_WORDS, spell_check=SPELL_CHECK,
-                                        type="test")
+    # feature engineering
+    # replace unseen word in test set with most similar one in training base on Word2Vec
+    if rm_unseen:
+        clean_train_x, clean_test_x = preprocess.replace_unknown_words(raw_train_x=clean_train_x, raw_test_x=clean_test_x)
 
-    words_set, train_features = feature.extract_features(clean_train, reduce_method=EXTRACT_METHOD, top=TOP, vectorize=VECTORIZE,
-                                                         type="train", words_set=None, tag=STEM+STOP_WORDS+SPELL_CHECK)
-    words_set, dev_features = feature.extract_features(clean_dev, reduce_method=EXTRACT_METHOD, top=TOP, vectorize=VECTORIZE,
-                                              type="dev", words_set=words_set, tag=STEM+STOP_WORDS+SPELL_CHECK)
-    words_set, test_features = feature.extract_features(clean_test, reduce_method=EXTRACT_METHOD, top=TOP, vectorize=VECTORIZE,
-                                              type="test", words_set=words_set, tag=STEM+STOP_WORDS+SPELL_CHECK)
+    # eliminate bias word with low pcw
+    if rm_bias_word:
+        bias_words = feature_eng.reduce_words_pcw(df_x=clean_train_x, df_y=train_y, threshold=threshold, limit=limit)
+        clean_train_x = feature_eng.filter_words(df_x=clean_train_x, bias_words=bias_words)
+        clean_test_x = feature_eng.filter_words(df_x=clean_test_x, bias_words=bias_words)
 
-    classifiers.train_n_test(train_df=train_features, dev_df=dev_features)
-    classifiers.predict(train_df=train_features, test_df=test_features, test_original_df=raw_test, tags=STEM+STOP_WORDS+SPELL_CHECK+EXTRACT_METHOD+TOP+VECTORIZE)
+    # merge all tweets of training/testing together
+    if merge:
+        clean_train_x, train_y = feature_eng.merge_train(clean_train_x, train_y)
 
+    # extract tf-idf features
+    train_x, test_x = feature_eng.tf_idf_extract(clean_train_x, clean_test_x, svd=False)
+
+    # train / evaluate variant models
+    if type == "dev":
+        classifiers.evaluate(model_title=MODELS, train_x=train_x, train_y=train_y, test_x=test_x, test_y=test_y)
+    elif type == "test":
+        classifiers.predict(model_title=MODELS, train_x=train_x, train_y=train_y, test_x=test_x, raw_test_x=raw_test_x, test_id=test_id)
+    
+    print("####INFO: complete tf-idf")
     return
 
-# read all content of tsv format file and return pandas dataframe
-# Reason: use pandas to read tsv file (by set deliminator or sep) will accidentally miss rows whose previous row
-# end up with \"", so to ensure data integrity, build a new function for reading tsv.
-def read_tsv(file_path):
-    print("####INFO: Start reading: ", file_path)
-    data, count, num_lines, start_time = [], -1, sum(1 for line in open(file_path)), time.time()
+# classify based on Mutual Information
+def mi(top="10", type="dev"):
+    print("####INFO: start MI", top)
+    # read features and row data
+    train_file = FEATURE_PATH + "mi/" + "/train-top" + top + ".csv"
+    test_file = FEATURE_PATH + "mi/" + "/" + type + "-top" + top + ".csv"
+    if type == "dev":
+        raw_test_x, test_y, test_id = preprocess.read_tsv(file_path=DEV_FILE, word_min_length=0, read_raw=True)
+    else:
+        raw_test_x, test_y, test_id = preprocess.read_tsv(file_path=TEST_FILE, word_min_length=0, read_raw=True)
 
-    with open(file_path) as file:
-        for line in file:
-            words = line.rstrip().split('\t')
+    train_pd = pd.read_csv(train_file, delimiter=',')
+    test_pd = pd.read_csv(test_file, delimiter=',')
 
-            row = [""] if count == -1 else [count]
+    # allocate features
+    train_id, train_x, train_y = train_pd.iloc[:, 0], train_pd.iloc[:, 1:-1], train_pd.iloc[:, -1]
+    test_id, test_x, test_y = test_pd.iloc[:, 0], test_pd.iloc[:, 1:-1], test_pd.iloc[:, -1]
 
-            row.extend(words)
-            data.append(row)
-            count += 1
+    # train / evaluate
+    if type == "dev":
+        classifiers.evaluate(model_title=MODELS, train_x=train_x, train_y=train_y, test_x=test_x, test_y=test_y)
+    elif type == "test":
+        classifiers.predict(model_title=MODELS, train_x=train_x, train_y=train_y, test_x=test_x, raw_test_x=raw_test_x, test_id=test_id)
+    print("####INFO: complete MI")
+    return
 
-            print("####INFO: reading " + "{0:.0%}".format(count / num_lines), end='\r')
+def wlh(top="10", length=0, type="dev"):
+    print("####INFO: start WLH")
+    # read clean data and raw data from tsv (clean data finished preprocessing and substring extraction)
+    if type == "dev":
+        clean_train_x, train_y, train_id = preprocess.read_tsv(file_path=TRAIN_FILE, word_min_length=length)
+        clean_test_x, test_y, test_id = preprocess.read_tsv(file_path=DEV_FILE, word_min_length=length)
+        raw_test_x, test_y, test_id = preprocess.read_tsv(file_path=DEV_FILE, word_min_length=length, read_raw=True)
+    else:
+        clean_train_x, train_y, train_id = preprocess.read_tsv(file_path=ALL_FILE, word_min_length=length)
+        clean_test_x, test_y, test_id = preprocess.read_tsv(file_path=TEST_FILE, word_min_length=length)
+        raw_test_x, test_y, test_id = preprocess.read_tsv(file_path=TEST_FILE, word_min_length=length, read_raw=True)
 
-    data, end_time = np.array(data), time.time()
+    train_x, test_x = feature_eng.extract_wlh(train_raw=clean_train_x, train_y=train_y, test_raw=clean_test_x, top=top)
 
-    print("####INFO: Complete reading:", file_path, "Spend Time:", end_time - start_time)
+    # train / evaluate variant models
+    if type == "dev":
+        classifiers.evaluate(model_title=MODELS, train_x=train_x, train_y=train_y, test_x=test_x, test_y=test_y)
+    elif type == "test":
+        classifiers.predict(model_title=MODELS, train_x=train_x, train_y=train_y, test_x=test_x, raw_test_x=raw_test_x,
+                            test_id=test_id)
+    print("####INFO: complete WLH")
+    return
 
-    return pd.DataFrame(data=data[1:,1:],
-                  index=data[1:,0],
-                  columns=data[0,1:])
+MODELS = ['MNB'] #, 'LinearSVM', 'LogisticRegression', 'EnsembleHard1', 'EnsembleHard2', 'Stack']
 
-#### Function Call ####
-geotag()
+# function calls
+type = "dev"
+
+# MI
+for top in ["10", "50", "100"]:
+    mi(top=top, type=type)
+    
+# WLH
+# wlh(top="10", length=0, type=type)
+
+# best MNB
+tf_idf(threshold=0.25, length=3, limit=0, rm_unseen=False, rm_bias_word=True, merge=True, type=type)
+# best Hard Ensemble1
+tf_idf(threshold=0, length=0, limit=0, rm_unseen=False, rm_bias_word=False, merge=False, type=type)

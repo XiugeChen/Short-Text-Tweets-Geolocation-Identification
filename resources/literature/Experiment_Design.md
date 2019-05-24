@@ -11,13 +11,15 @@
 
 1. Remove all speical characters, url, emojis, mentions, hash tags and punctuations.
 
-2. Spell check ([pyspellchecker], based on Peter Novig's method, Levenshtein Distance algorithm to find permutations)
+2. Spell check ([pyspellchecker], based on Peter Novig's method, Levenshtein Distance algorithm to find permutations) **(too slow to perform: more than 24 hours to deal with train data)**
 
-3. **(Optional)**: Decrese words size:
+3. all to lowercase
+
+4. **(Optional)**: Decrese words size:
 
    a. Remove all stop words. (NLTK) 
 
-4. **(Optional)**: Decrease words variance:
+5. **(Optional)**: Decrease words variance:
 
    a. Snowball stemming algorithm (also does reducing all chars to lowercase.) **(reduce melbourne -> melbourn, MEL -> mel)** (Lancaster: too agressive, Porter: no better than snowball)
 
@@ -51,7 +53,7 @@ Options:
 
 2. **(Optional)**: Further decrease size:
 
-   a. WLH (20% - 80%) on unigram(all words)
+   a. WLH (20 - 80%) on unigram(all words)
 
    b. NER (Standford) (ORGANIZATION/LOCATION) (char > 4 and frequency > 10) **(sometimes can't recognize ny, not work as examples)**
 
