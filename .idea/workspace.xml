@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d60c687b-203d-42f1-9db2-2963d3db1054" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resources/features/mi/dev-top10-.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/features/mi/dev-top100-.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/features/mi/dev-top50-.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/features/mi/test-top10-.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/features/mi/test-top100-.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/features/mi/test-top50-.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/features/mi/train-top10-.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/features/mi/train-top100-.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/features/mi/train-top50-.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/preprocess_data/train_stem_remove_stop.csv" beforeDir="false" afterPath="$PROJECT_DIR$/resources/preprocess_data/train_stem_remove_stop.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/final_report/report.docx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/final_report/report.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classifiers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/classifiers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/feature_eng.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/feature_eng.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/geotag.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/geotag_classifiers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag_classifiers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/geotag_feature_eng.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag_feature_eng.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/geotag_preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geotag_preprocess.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,49 +15,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/geotag.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
-              <folding>
-                <element signature="e#615#653#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1710">
+              <caret line="118" selection-start-line="118" selection-end-line="118" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/geotag_preprocess.py">
+        <entry file="file://$PROJECT_DIR$/src/feature_eng.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-176">
-              <caret line="70" column="22" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="71" />
+            <state relative-caret-position="351">
+              <caret line="94" column="25" lean-forward="true" selection-start-line="94" selection-start-column="25" selection-end-line="94" selection-end-column="25" />
               <folding>
-                <element signature="e#487#527#0" expanded="true" />
+                <element signature="e#0#34#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/geotag_feature_eng.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="21" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="21" />
+            <state relative-caret-position="432">
+              <caret line="32" column="28" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="28" />
               <folding>
-                <element signature="e#493#531#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/geotag_classifiers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
-              <folding>
-                <element signature="e#489#512#0" expanded="true" />
+                <element signature="e#0#23#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,6 +68,9 @@
         <option value="$PROJECT_DIR$/src/geotag_preprocess.py" />
         <option value="$PROJECT_DIR$/src/geotag_feature_eng.py" />
         <option value="$PROJECT_DIR$/src/geotag_classifiers.py" />
+        <option value="$PROJECT_DIR$/src/preprocess.py" />
+        <option value="$PROJECT_DIR$/src/feature_eng.py" />
+        <option value="$PROJECT_DIR$/src/classifiers.py" />
         <option value="$PROJECT_DIR$/src/geotag.py" />
       </list>
     </option>
@@ -113,23 +91,12 @@
         <subPane>
           <expand>
             <path>
-              <item name="Short-Text-Location-Prediction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Short-Text-Location-Prediction" type="462c0819:PsiDirectoryNode" />
+              <item name="Tweet-Geolocation_Short-Text-Geotag_COMP30027_Unimelb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Tweet-Geolocation_Short-Text-Geotag_COMP30027_Unimelb" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Short-Text-Location-Prediction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Short-Text-Location-Prediction" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Short-Text-Location-Prediction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Short-Text-Location-Prediction" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="dataFile" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Short-Text-Location-Prediction" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Short-Text-Location-Prediction" type="462c0819:PsiDirectoryNode" />
+              <item name="Tweet-Geolocation_Short-Text-Geotag_COMP30027_Unimelb" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Tweet-Geolocation_Short-Text-Geotag_COMP30027_Unimelb" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -199,8 +166,8 @@
     <frame x="24" y="23" width="1400" height="758" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4984985" visible="true" weight="0.27540502" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.5015015" side_tool="true" visible="true" weight="0.27540502" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.496997" visible="true" weight="0.2790869" />
+      <window_info id="Structure" order="1" sideWeight="0.503003" side_tool="true" visible="true" weight="0.2790869" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -220,6 +187,17 @@
       <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="right" id="R Packages" order="4" />
     </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/classifiers.py</url>
+          <line>179</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/geotagging.ipynb" />
@@ -250,42 +228,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/geotag_preprocess.py">
+    <entry file="file://$PROJECT_DIR$/src/geotag_preprocess.py" />
+    <entry file="file://$PROJECT_DIR$/src/geotag_feature_eng.py" />
+    <entry file="file://$PROJECT_DIR$/src/geotag_classifiers.py" />
+    <entry file="file://$PROJECT_DIR$/src/preprocess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-176">
-          <caret line="70" column="22" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="71" />
+        <state relative-caret-position="96">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
           <folding>
-            <element signature="e#487#527#0" expanded="true" />
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/geotag_feature_eng.py">
+    <entry file="file://$PROJECT_DIR$/src/feature_eng.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="21" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="21" />
+        <state relative-caret-position="351">
+          <caret line="94" column="25" lean-forward="true" selection-start-line="94" selection-start-column="25" selection-end-line="94" selection-end-column="25" />
           <folding>
-            <element signature="e#493#531#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/geotag_classifiers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="38" column="20" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
-          <folding>
-            <element signature="e#489#512#0" expanded="true" />
+            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/geotag.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+        <state relative-caret-position="1710">
+          <caret line="118" selection-start-line="118" selection-end-line="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/classifiers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="32" column="28" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="28" />
           <folding>
-            <element signature="e#615#653#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>

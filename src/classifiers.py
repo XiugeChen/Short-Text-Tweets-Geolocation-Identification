@@ -1,11 +1,14 @@
 from sklearn import svm
+from sklearn.dummy import DummyClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.naive_bayes import BernoulliNB
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import VotingClassifier
-from sklearn.ensemble import RandomForestClassifier
 from mlxtend.classifier import StackingClassifier
+from statistics import mean
 
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
@@ -22,24 +25,22 @@ C_SVM = 0.95
 max_iter = 10000
 
 # MODEL SETTING
-models = [MultinomialNB(),
-          BernoulliNB(),
+models = [DummyClassifier(strategy='most_frequent'),
+          DummyClassifier(strategy='stratified'),
+          MultinomialNB(alpha=0.01),
+          BernoulliNB(alpha=0.01),
           svm.LinearSVC(C=C_SVM, max_iter=max_iter),
           LogisticRegression(solver="lbfgs", penalty="l2", C=C_LG, multi_class='auto', max_iter=max_iter),
-          VotingClassifier(estimators=[('lr', LogisticRegression(solver="lbfgs", penalty='l2', C=C_LG, multi_class='auto', max_iter=max_iter)), ('svm', svm.LinearSVC(C=C_SVM, max_iter=max_iter)), ('mnb', MultinomialNB())], voting='hard'),
-          VotingClassifier(estimators=[('lr', LogisticRegression(solver="lbfgs", penalty='l2', C=C_LG, multi_class='auto', max_iter=max_iter)), ('bmb', BernoulliNB()), ('mnb', MultinomialNB())], voting='hard'),
-          VotingClassifier(estimators=[('lr', LogisticRegression(solver="lbfgs", penalty='l2', C=C_LG, multi_class='auto', max_iter=max_iter)), ('mnb', MultinomialNB()), ('bmb', BernoulliNB())], voting='soft', weights=[2, 2, 1]),
-          StackingClassifier(classifiers=[MultinomialNB(), BernoulliNB()], meta_classifier=LogisticRegression(solver="lbfgs", penalty="l2", C=C_LG, max_iter=max_iter, multi_class='auto'), use_probas=True, average_probas=True),
-          RandomForestClassifier(n_estimators=10, max_depth=None, min_samples_split=2, random_state=1)]
-titles = ['MNB',
+          VotingClassifier(estimators=[('lr', LogisticRegression(solver="lbfgs", penalty='l2', C=C_LG, multi_class='auto', max_iter=max_iter)), ('svm', svm.LinearSVC(C=C_SVM, max_iter=max_iter)), ('mnb', MultinomialNB(alpha=0.01))], voting='hard'),
+          StackingClassifier(classifiers=[MultinomialNB(alpha=0.01), BernoulliNB(alpha=0.01)], meta_classifier=LogisticRegression(solver="lbfgs", penalty="l2", C=C_LG, max_iter=max_iter, multi_class='auto'), use_probas=True, average_probas=True)]
+titles = ['Dummy_most_frequent',
+          'Dummy_stratified',
+          'MNB',
           'BMB',
           'LinearSVM',
           'LogisticRegression',
           'EnsembleHard1',
-          'EnsembleHard2',
-          'EnsembleSoft1',
-          'Stack',
-          'RandomForest']
+          'Stack']
 
 # evaluate training data on development data with variant classifiers
 def evaluate(model_title, train_x, train_y, test_x, test_y):
@@ -52,10 +53,15 @@ def evaluate(model_title, train_x, train_y, test_x, test_y):
 
         model.fit(train_x, train_y)
         acc = accuracy_score(model.predict(test_x), test_y)
+        prf1 = precision_recall_fscore_support(test_y, model.predict(test_x), average='macro')
+        matrix = confusion_matrix(test_y, model.predict(test_x), labels=["Melbourne", "Sydney", "Brisbane", 'Perth'])
 
         end = time.time()
         t = end - start
-        print("####INFO: trainning", title, acc, 'time:', t)
+        print("####INFO: trainning", title, acc, prf1, 'time:', t)
+        print("Melbourne", "Sydney", "Brisbane", 'Perth')
+        print(matrix)
+        print("Melbourne", sum(value[0] for value in matrix) / len(test_y), "Sydney", sum(value[1] for value in matrix) / len(test_y), "Brisbane", sum(value[2] for value in matrix) / len(test_y), 'Perth', sum(value[3] for value in matrix) / len(test_y))
 
     return
 

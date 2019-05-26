@@ -27,7 +27,7 @@ def tf_idf(threshold=0, length=0, limit=0, rm_unseen=False, rm_bias_word=True, m
     # feature engineering
     # replace unseen word in test set with most similar one in training base on Word2Vec
     if rm_unseen:
-        clean_train_x, clean_test_x = preprocess.replace_unknown_words(raw_train_x=clean_train_x, raw_test_x=clean_test_x)
+        clean_train_x, clean_test_x = feature_eng.replace_unknown_words(raw_train_x=clean_train_x, raw_test_x=clean_test_x)
 
     # eliminate bias word with low pcw
     if rm_bias_word:
@@ -100,19 +100,24 @@ def wlh(top="10", length=0, type="dev"):
     print("####INFO: complete WLH")
     return
 
-MODELS = ['MNB'] #, 'LinearSVM', 'LogisticRegression', 'EnsembleHard1', 'EnsembleHard2', 'Stack']
+MODELS = ['MNB', 'EnsembleHard1']#['Dummy_most_frequent','Dummy_stratified','MNB','BMB','LinearSVM','LogisticRegression','EnsembleHard1','Stack']
 
 # function calls
 type = "dev"
-
+'''
 # MI
 for top in ["10", "50", "100"]:
     mi(top=top, type=type)
-    
+'''
 # WLH
-# wlh(top="10", length=0, type=type)
+#wlh(top="100", length=0, type=type)
 
 # best MNB
-tf_idf(threshold=0.25, length=3, limit=0, rm_unseen=False, rm_bias_word=True, merge=True, type=type)
+#tf_idf(threshold=0.25, length=3, limit=0, rm_unseen=False, rm_bias_word=True, merge=True, type=type)
+#tf_idf(threshold=0.25, length=3, limit=10, rm_unseen=True, rm_bias_word=True, merge=True, type=type)
 # best Hard Ensemble1
 tf_idf(threshold=0, length=0, limit=0, rm_unseen=False, rm_bias_word=False, merge=False, type=type)
+# other test
+
+#tf_idf(threshold=0.25, length=3, limit=10, rm_unseen=True, rm_bias_word=True, merge=True, type=type)
+#tf_idf(threshold=0, length=0, limit=0, rm_unseen=False, rm_bias_word=False, merge=False, type=type)

@@ -81,6 +81,7 @@ def reduce_words_pcw(df_x, df_y, threshold, limit):
 def filter_words(df_x, bias_words):
     new_df_x = []
 
+    count = 0
     for i in range(0, len(df_x)):
         words = df_x[i].rstrip().split(' ')
 
@@ -91,11 +92,14 @@ def filter_words(df_x, bias_words):
 
         new_row = [word for word in words if word not in bias_words]
 
+        if new_row == []:
+            count += 1
+
         new_str = ''.join(str(word) + ' ' for word in new_row)[:-1]
         new_df_x.append(new_str)
         print("####INFO: filtering " + "{0:.0%}".format(i / len(df_x)), end='\r')
 
-    print("####INFO: finish apply to text")
+    print("####INFO: finish apply to text, empty row", count / len(df_x))
 
     return np.array(new_df_x)
 
@@ -232,19 +236,11 @@ def extract_wlh(train_raw, train_y, test_raw, top):
         if count > limit:
             break
 
-    train_x_transform = [text.rstrip().split(' ') for text in train_raw]
-    test_x_transform = [text.rstrip().split(' ') for text in test_raw]
+    cv = CountVectorizer(max_df=1.0, stop_words="english", decode_error='ignore')
 
-    length = len(new_word)
-    train_x_transform = np.array([xi + [None] * (length - len(xi)) for xi in train_x_transform])
-    test_x_transform = np.array([xi + [None] * (length - len(xi)) for xi in test_x_transform])
-    new_word = np.array([new_word])
-
-    # do one hot encoding
-    onehot_encoder = OneHotEncoder(sparse=True, handle_unknown='ignore')
-    onehot_encoder.fit(new_word)
-    new_train_features = onehot_encoder.transform(train_x_transform).toarray()
-    new_test_features = onehot_encoder.transform(test_x_transform).toarray()
+    cv.fit(new_word)
+    new_train_features = cv.transform(train_raw)
+    new_test_features = cv.transform(test_raw)
 
     print("####INFO: Complete extracing WLH, time", str(time.time() - start_time))
     return new_train_features, new_test_features
