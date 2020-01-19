@@ -1,19 +1,21 @@
-## DESCRIPTION
+# Short-Text-Tweets-Geolocation-Identification
 
-Project 2 for COMP30027 Machine Learning at University of Melbourne
+## Introduction
 
+* Project 2 of [COMP30027](https://handbook.unimelb.edu.au/subjects/comp30027) (Machine Learning) at the University of Melbourne, 2019 Sem1.
 
+* Predict the geolocation of tweets, using mainly tf-idf features and linear SVM. 
 
-For detailed description please look at resources/project_description.pdf
+* [Project specification](project_specification.pdf)
 
-## EXECUTION COMMAND (Linux)
+## Usage (Linux)
 
 `cd src`
 
 `python3 geotag.py`
 
 
-## ATTRIBUTION
+## Contribution
 Xiuge Chen
 
 xiugec@student.unimelb.edu.au
